@@ -1,0 +1,24 @@
+var HarshDancer = function(top, left, timeBetweenSteps){
+  Dancer.call(this, top, left, timeBetweenSteps);
+  this.$node.css({'background-image' : 'url("harsh.jpeg")'});
+}
+
+HarshDancer.prototype = Object.create(Dancer.prototype);
+HarshDancer.prototype.constructor = HarshDancer;
+
+HarshDancer.prototype.step = function(){
+  Dancer.prototype.step.call(this);
+  var vertical = Math.random() * 100;
+  var horizontal = Math.random() * 100;
+  var hNeg = Math.random() * 2;
+  var vNeg = Math.random() * 2;
+  if(hNeg > 0){
+    horizontal = 0 - horizontal;
+  }
+  if(vNeg > 0){
+    vertical = 0 - vertical;
+  }
+  this.$node.css({'top' : vertical, 'left' : horizontal})
+
+
+}
