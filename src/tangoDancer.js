@@ -15,3 +15,10 @@ TangoDancer.prototype.step = function() {
   
   this.$node.css({'border-color': 'rgba('+red+','+green+','+blue+',1)'})
 }
+
+
+TangoDancer.prototype.lineUp = function(dancers, i){
+  var leftPosition = i> 0 ? dancers[i-1].left+=20 : 0
+  this.setPosition(0,leftPosition); 
+  this.$node.css({'border-radius': 0}); 
+}

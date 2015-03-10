@@ -33,14 +33,28 @@ $(document).ready(function(){
     window.dancers.push(dancer);
 
   });
-  var lineUp = function(){
-    dancers[0].setPosition(0,0);
-    for(var i = 1; i < dancers.length; i++){
-      dancers[i].setPosition(0, dancers[i-1].left + 50);
-    }
-  }
   $('.lineUpDancers').on('click', function(event){    
-    lineUp();
+    for(var i = 0; i < dancers.length; i++){
+      dancers[i].lineUp(dancers,i);
+    }
+  });
+  $("span").on('click',function(event){
+    $('body').css({'background-color': 'blue'})
+    var close1 = 0;
+    var close2 = 0;
+    var calcDistance = function(x, y){
+      var aSquared = Math.abs(Math.pow((x.top - y.top), 2));
+      var bSquared = Math.abs(Math.pow((x.left - y.left), 2));
+      return Math.sqrt(aSquared + bSquared);
+    }
+    for(var i = 0; i < dancers.length; i++){
+      if(calcDistance($(this), dancers[i]) < calcDistance($(this), dancers[close1])){
+        close1 = i;
+      } else if (calcDistance($(this), dancers[i]) < calcDistance($(this), dancers[close2])){
+        close2 = i;
+      } 
+    }
+    // dancers[close1].$node.animate({height: "300px"});
   });
 });
 

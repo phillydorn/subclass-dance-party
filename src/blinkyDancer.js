@@ -12,4 +12,11 @@ var BlinkyDancer = function(top, left, timeBetweenSteps){
     // See http://api.jquery.com/category/effects/ for this and
     // other effects you can use on a jQuery-wrapped html tag.
     this.$node.toggle();
+
   };
+
+  BlinkyDancer.prototype.lineUp = function(dancers, i){
+    var leftPosition = i> 0 ? dancers[i-1].left+=20 : 0
+    this.setPosition(0,leftPosition); 
+    this.$node.append('<img src="src/glenn.jpg">'); 
+  }

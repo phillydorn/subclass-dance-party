@@ -14,3 +14,18 @@ HarshDancer.prototype.step = function(){
   this.$node.children().css({'width' : size
 , 'height' : size});
 }
+
+HarshDancer.prototype.lineUp = function(dancers,i){
+ var leftPosition = i> 0 ? dancers[i-1].left+=20 : 0
+  this.setPosition(0,leftPosition)
+  var deg = 0
+  var rotate = function() {
+    if (deg > 360) {
+      deg = 0
+    } else {
+      deg++
+    }
+    this.$node.css.call(this.$node,{'-webkit-transform': 'rotate('+deg+'deg)'})
+  }
+  setInterval(rotate.bind(this),1);
+}
