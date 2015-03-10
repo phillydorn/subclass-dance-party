@@ -38,23 +38,47 @@ $(document).ready(function(){
       dancers[i].lineUp(dancers,i);
     }
   });
-  $("span").on('click',function(event){
-    $('body').css({'background-color': 'blue'})
-    var close1 = 0;
-    var close2 = 0;
+  var close1 = 0; 
+  var close2 = 0;
+  var close1Pos = [];
+  var close2Pos = [];
+  $(document).on('mouseenter', 'span',function(event){
+    //Helper Functions
+    var slicePx = function(string){
+      return +string.slice(0, -2);
+    }
+
+    var addPx = function(num){
+      return ""+ num + "px";
+    }
+
     var calcDistance = function(x, y){
-      var aSquared = Math.abs(Math.pow((x.top - y.top), 2));
-      var bSquared = Math.abs(Math.pow((x.left - y.left), 2));
+      var xTop = slicePx(x.css("top"));
+      var yTop = slicePx(y.css("top"));
+      var xLeft = slicePx(x.css("left"));
+      var yLeft = slicePx(y.css("left"));
+      var aSquared = Math.abs(Math.pow((xTop - yTop), 2));
+      var bSquared = Math.abs(Math.pow((xLeft - yLeft), 2));
       return Math.sqrt(aSquared + bSquared);
     }
     for(var i = 0; i < dancers.length; i++){
-      if(calcDistance($(this), dancers[i]) < calcDistance($(this), dancers[close1])){
+      if((dancers[i].$node !== $(this) && calcDistance($(this), dancers[i].$node) < calcDistance($(this), dancers[close1].$node)) || calcDistance($(this), dancers[close1].$node) === 0){
         close1 = i;
-      } else if (calcDistance($(this), dancers[i]) < calcDistance($(this), dancers[close2])){
+      } else if ((dancers[i].$node !== $(this) && calcDistance($(this), dancers[i].$node) < calcDistance($(this), dancers[close2].$node)) || calcDistance($(this), dancers[close2].$node) === 0){
         close2 = i;
       } 
     }
-    // dancers[close1].$node.animate({height: "300px"});
+    close1Pos = [dancers[close1].$node.css("top"), dancers[close1].$node.css("left")];
+    close2Pos = [dancers[close2].$node.css("top"), dancers[close2].$node.css("left")]; 
+    var thisLeft = slicePx($(this).css("left"));
+    thisLeft += slicePx($(this).css("width"));
+    dancers[close1].$node.animate({top: $(this).css("top"), left: addPx(thisLeft)});
+    dancers[close2].$node.animate({top: $(this).css("top"), left: addPx(thisLeft)});
+  });
+
+  $(document).on('mouseleave', 'span', function(event){
+    dancers[close1].$node.animate({top: close1Pos[0], left: close1Pos[1]});
+    dancers[close2].$node.animate({top: close2Pos[0], left: close2Pos[1]});    
   });
 });
 
