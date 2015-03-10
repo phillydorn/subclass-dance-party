@@ -1,6 +1,7 @@
 $(document).ready(function(){
   window.dancers = [];
   window.timeOutFunction;
+  window.linedUp = false
 
     window.slicePx = function(string){
       return +string.slice(0, -2);
@@ -41,10 +42,17 @@ $(document).ready(function(){
     window.dancers.push(dancer);
 
   });
-  $('.lineUpDancers').on('click', function(event){    
+  $('.lineUpDancers').on('click', function(event){
+    linedUp = true    
     for(var i = 0; i < dancers.length; i++){
       dancers[i].lineUp(dancers,i);
     }
+  });
+  $(".unline").on('click', function(event){
+    linedUp = false;
+    for(var i = 0; i < dancers.length; i++){
+      dancers[i].unline();
+    }         
   });
   var close1 = 0; 
   var close2 = 0;

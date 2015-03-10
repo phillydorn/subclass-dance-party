@@ -5,6 +5,8 @@ body{
   margin: 0px;
   background-color:#444;
   font-size: 18px;
+  background-image: url('src/screen.png');
+  background-size: 100%;
 }
 body, a:link, a:visited, a:active{
   color: lightblue;
@@ -26,4 +28,28 @@ body, a:link, a:visited, a:active{
   border:10px solid red;
   border-radius:10px;
   position:absolute;
+}
+
+.star {
+    width: 0;
+    height: 0;
+    border-top: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 100px solid red;
+}
+
+.star:after {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-top: 100px solid red;
+  position: absolute;
+  content: "";
+  top: 30px;
+  left: -50px;
+}
+.lineUp.TangoDancer {
+  border-radius: 0;
 }

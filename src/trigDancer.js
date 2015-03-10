@@ -4,14 +4,8 @@ var TrigDancer = function(top, left, timeBetweenSteps) {
   Dancer.call(this, middle, 0, timeBetweenSteps);
   this.top = middle;
   this.left = 0;
-  /*this.$node.css({
-  width: 0;
-  height: 0;
-  border-left: 50px solid transparent;
-  border-right: 50px solid transparent;
-  border-bottom: 100px solid red;
-  position: relative;
-})*/
+  this._timeBetweenSteps = timeBetweenSteps;
+  this.$node.addClass('star');
 };
 
 TrigDancer.prototype = Object.create(Dancer.prototype);
@@ -21,4 +15,13 @@ TrigDancer.prototype.step = function() {
   this.left = this.left < slicePx($("body").css("width")) ? this.left +100 : 0; //number
   this.top = addPx(this.middle + (Math.sin(this.left))*100); 
   this.$node.animate({top: this.top, left: addPx(this.left)});
+}
+TrigDancer.prototype.lineUp = function(dancers,i) {
+  this.left = i> 0 ? dancers[i-1].left+=100 : 0
+  setTimeout(this.setPosition.bind(this, 32, this.left), this._timeBetweenSteps + 2000); 
+}
+TrigDancer.prototype.unline = function(){
+  this.setPosition(this.top, this.left);
+  this.$node.removeClass("lineUp");
+  this.step();
 }

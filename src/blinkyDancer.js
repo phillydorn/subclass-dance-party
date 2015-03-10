@@ -1,5 +1,7 @@
 var BlinkyDancer = function(top, left, timeBetweenSteps){
   Dancer.call(this, top, left, timeBetweenSteps);
+  this._top = top;
+  this._left = left;
 }
   // we plan to overwrite the step function below, but we still want the superclass step behavior to work,
   // so we must keep a copy of the old version of this function
@@ -17,6 +19,13 @@ var BlinkyDancer = function(top, left, timeBetweenSteps){
 
   BlinkyDancer.prototype.lineUp = function(dancers, i){
     var leftPosition = i> 0 ? dancers[i-1].left+=20 : 0
-    this.setPosition(0,leftPosition); 
+    this.setPosition(32,leftPosition); 
     this.$node.append('<img src="src/glenn.jpg">'); 
   }
+
+  BlinkyDancer.prototype.unline = function(){
+  this.setPosition(this._top, this._left);
+  this.$node.removeClass("lineUp");
+  this.$node.children().hide();
+  this.step();
+}

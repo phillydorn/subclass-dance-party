@@ -2,7 +2,9 @@ var HarshDancer = function(top, left, timeBetweenSteps){
   Dancer.call(this, top, left, timeBetweenSteps);
   this.$node.append('<img src="src/harsh.jpeg">');
   this.$node.css({'border': 'none'})
-  timeBetweenSteps/=10
+  timeBetweenSteps/=10;
+  this.top = top;
+  this.left = left;
 }
 
 HarshDancer.prototype = Object.create(Dancer.prototype);
@@ -17,7 +19,7 @@ HarshDancer.prototype.step = function(){
 
 HarshDancer.prototype.lineUp = function(dancers,i){
  var leftPosition = i> 0 ? dancers[i-1].left+=20 : 0
-  this.setPosition(0,leftPosition)
+  this.setPosition(32,leftPosition)
   var deg = 0
   var rotate = function() {
     if (deg > 360) {
@@ -27,5 +29,13 @@ HarshDancer.prototype.lineUp = function(dancers,i){
     }
     this.$node.css.call(this.$node,{'-webkit-transform': 'rotate('+deg+'deg)'})
   }
-  setInterval(rotate.bind(this),1);
+  this.interval = setInterval(rotate.bind(this),1);
+}
+
+HarshDancer.prototype.unline = function(){
+  this.setPosition(this.top, this.left);
+  this.$node.removeClass("lineUp");
+  clearInterval(this.interval)
+  this.$node.css({'-webkit-transform': 'rotate(0deg)'})
+  this.step();
 }
