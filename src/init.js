@@ -2,6 +2,14 @@ $(document).ready(function(){
   window.dancers = [];
   window.timeOutFunction;
 
+    window.slicePx = function(string){
+      return +string.slice(0, -2);
+    }
+
+    window.addPx = function(num){
+      return ""+ num + "px";
+    }
+
   $(".addDancerButton").on("click", function(event){
     /* This function sets up the click handlers for the create-dancer
      * buttons on dancefloor.html. You should only need to make one small change to it.
@@ -44,14 +52,9 @@ $(document).ready(function(){
   var close2Pos = [];
   $(document).on('mouseenter', 'span',function(event){
     //Helper Functions
-    var slicePx = function(string){
-      return +string.slice(0, -2);
-    }
 
-    var addPx = function(num){
-      return ""+ num + "px";
-    }
 
+    //Calculates distance between two dancers.
     var calcDistance = function(x, y){
       var xTop = slicePx(x.css("top"));
       var yTop = slicePx(y.css("top"));
@@ -61,6 +64,7 @@ $(document).ready(function(){
       var bSquared = Math.abs(Math.pow((xLeft - yLeft), 2));
       return Math.sqrt(aSquared + bSquared);
     }
+    //iterates through each dancer to find the two closest dancers
     for(var i = 0; i < dancers.length; i++){
       if((dancers[i].$node !== $(this) && calcDistance($(this), dancers[i].$node) < calcDistance($(this), dancers[close1].$node)) || calcDistance($(this), dancers[close1].$node) === 0){
         close1 = i;
@@ -68,6 +72,8 @@ $(document).ready(function(){
         close2 = i;
       } 
     }
+
+
     close1Pos = [dancers[close1].$node.css("top"), dancers[close1].$node.css("left")];
     close2Pos = [dancers[close2].$node.css("top"), dancers[close2].$node.css("left")]; 
     var thisLeft = slicePx($(this).css("left"));
