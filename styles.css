@@ -53,3 +53,10 @@ body, a:link, a:visited, a:active{
 .lineUp.TangoDancer {
   border-radius: 0;
 }
+.lineUp.star {
+  border-bottom-color: blue;
+}
+
+.lineUp.star:after{
+  border-top-color: green;
+}

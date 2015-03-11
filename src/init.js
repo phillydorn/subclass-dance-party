@@ -42,8 +42,8 @@ $(document).ready(function(){
     window.dancers.push(dancer);
 
   });
-  $('.lineUpDancers').on('click', function(event){
-    linedUp = true    
+  $(document).on('click', '.lineUpDancers', function(event){
+    linedUp = true 
     for(var i = 0; i < dancers.length; i++){
       dancers[i].lineUp(dancers,i);
     }

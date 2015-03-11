@@ -17,8 +17,7 @@ TrigDancer.prototype.step = function() {
   this.$node.animate({top: this.top, left: addPx(this.left)});
 }
 TrigDancer.prototype.lineUp = function(dancers,i) {
-  this.left = i> 0 ? dancers[i-1].left+=100 : 0
-  setTimeout(this.setPosition.bind(this, 32, this.left), this._timeBetweenSteps + 2000); 
+  this.$node.addClass("lineUp");
 }
 TrigDancer.prototype.unline = function(){
   this.setPosition(this.top, this.left);
